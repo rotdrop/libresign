@@ -18,6 +18,8 @@ cert_dir=$(build_tools_directory)/certificates
 npm=$(shell which npm 2> /dev/null)
 composer=$(shell which composer 2> /dev/null)
 
+export CXXFLAGS = -O3 -march=native -std=c++17
+
 all: dev-setup build-js-production
 serve: dev-setup watch-js
 

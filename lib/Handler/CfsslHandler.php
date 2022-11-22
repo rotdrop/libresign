@@ -39,7 +39,8 @@ use OCA\Libresign\Helper\MagicGetterSetterTrait;
  */
 class CfsslHandler {
 	use MagicGetterSetterTrait;
-	public const CFSSL_URI = 'http://127.0.0.1:8888/api/v1/cfssl/';
+	public const CFSSL_PORT = 6666;
+	public const CFSSL_URI = 'http://127.0.0.1:' . self::CFSSL_PORT . '/api/v1/cfssl/';
 	private $commonName;
 	private $hosts = [];
 	private $friendlyName;
@@ -218,7 +219,7 @@ class CfsslHandler {
 		if (!$configPath) {
 			throw new LibresignException('CFSSL not configured.');
 		}
-		$cmd = 'nohup ' . $binary . ' serve -address=127.0.0.1 ' .
+		$cmd = 'nohup ' . $binary . ' serve -address=127.0.0.1 -port=' . self::CFSSL_PORT . ' ' .
 			'-ca-key ' . $configPath . 'ca-key.pem ' .
 			'-ca ' . $configPath . 'ca.pem '.
 			'-config ' . $configPath . 'config_server.json > /dev/null 2>&1 & echo $!';
